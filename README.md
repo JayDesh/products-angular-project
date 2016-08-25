@@ -14,3 +14,5 @@ Also there are some files like nested-controller-as.html which don't relate to t
 
 2) In products-angular-project folder, run the server with the following command to start the Angular App:
    python -m SimpleHTTPServer
+
+Also, this project requires a local Postgres db to be installed. But you can also use datafiles instead. I have commented in Scripts.js where the urls need to be changed to access data files instead of localdb. I plan to have a build process set up later and provide option to do so while running webpack. 
