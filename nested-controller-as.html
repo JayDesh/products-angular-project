@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="./src/css/products.css" media="screen" title="no title" charset="utf-8">
+  <script type="text/javascript" src='./lib/angular/angular.js'></script>
+  <script type="text/javascript" src='./lib/angular-route/angular-route.min.js'></script>
+  <script type="text/javascript" src='./src/scripts/nested-controller-as.js'></script>
+</head>
+<body data-ng-app="nestedCtrlModule">
+  <div class="" data-ng-controller="countryController as countryCtrl">{{countryCtrl.name}}
+    <div class="" data-ng-controller="stateController as stateCtrl">{{countryCtrl.name}}{{stateCtrl.name}}
+      <div class="" data-ng-controller="cityController as cityCtrl">{{countryCtrl.name}}{{stateCtrl.name}}{{cityCtrl.name}}</div>
+    </div>
+  </div>
+</body>
+</html>

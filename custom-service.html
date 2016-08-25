@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="./src/css/products.css" media="screen" title="no title" charset="utf-8">
+  <script type="text/javascript" src='./lib/angular/angular.js'></script>
+  <script type="text/javascript" src='./src/scripts/script.js'></script>
+</head>
+<body data-ng-app="productModule">
+    <div class="" data-ng-controller="customServiceController">
+      <div class="">
+        <label>Input String</label>
+        <input type="text" name="name" value="" data-ng-model="input"/>
+      </div>
+      <div class="">
+        <label>Formatted Value:</label>
+        <input type="text" data-ng-model='output'></span>
+      </div>
+      <button type="button" value="Process String" data-ng-click="processString( input )">Process String</button>
+    </div>
+  </body>
+</html>

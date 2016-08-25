@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src='./lib/angular/angular.js'></script>
+    <script type="text/javascript" src="./src/scripts/scope-vs-root-scope.js"></script>
+    </script>
+  </head>
+  <body data-ng-app="scopeDemoModule">
+      <div data-ng-controller="redController">
+        Root Scope Color: {{rootElementColor}} <br/>
+        Red Controller Scope Color: {{redControllerColor}}<br/>
+        <span ng-show="greenControllerColor===undefined" style="color:red">greenController is undefined</span><br/>
+        Common Yellow Value:{{yelloValue}}<br/>
+      </div>
+      <div data-ng-controller="greenController">
+        Root Scope Color: {{rootElementColor}} <br/>
+        Red Controller Scope Color: {{redControllerColor}}<br/>
+        Green Controller Scope Color: {{greenControllerColor}}<br/>
+      </div>
+  </body>
+</html>
