@@ -114,16 +114,6 @@ var myApp = angular
       //   });
       // };
   })
-  .controller('productUpdatesController', function ( $scope, $http, $log ) {
-    $http({
-      method: 'GET',
-      url: '../src/data/product-updates.json'
-    })
-    .then( function ( response ) {
-        $scope.productUpdates = response.data.updates;
-        $log.info( response.data.updates );
-    });
-  } )
   .controller( "userController", function ( $http, $log, $routeParams, $route ) {
     var vm = this;
 
@@ -158,6 +148,9 @@ var myApp = angular
       $log.info ( vm.product );
     } )
   })
+  .controller('productUpdatesController', function ( $scope, $http, $log, updateService ) {
+     updateService.getUpdates( $scope );
+  } )
   .controller("customServiceController", function( $scope, stringService, module1 ) {
     $scope.processString = function ( inputString ) {
       $scope.output = stringService.processString( inputString );

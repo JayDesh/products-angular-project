@@ -1,6 +1,6 @@
  // require('./script.js');
 
-myApp.factory( 'stringService', function ( ) {
+myApp.factory( 'stringService', function () {
   return {
     processString : function ( inputString ) {
       var outputString ='';
