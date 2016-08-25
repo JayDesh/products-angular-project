@@ -148,7 +148,7 @@ var myApp = angular
       $log.info ( vm.product );
     } )
   })
-  .controller('productUpdatesController', function ( $scope, $http, $log, updateService ) {
+  .controller('productUpdatesController', function ( $scope, updateService ) {
      updateService.getUpdates( $scope );
   } )
   .controller("customServiceController", function( $scope, stringService, module1 ) {

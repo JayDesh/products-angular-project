@@ -52,7 +52,7 @@ app.get( '/', function ( req, res ) {
 //http://localhost:3000/searchByName/Lotstring
 app.get( '/searchByName/:name', function ( req, res ) {
     console.log( 'in search by name');
-    var url = 'http://localhost:8000',
+    var requestingURL = 'http://localhost:8000',
     querySql = 'SELECT * FROM product';
 
     pg.connect( connectString, function( err, client, done ) {
@@ -67,7 +67,7 @@ app.get( '/searchByName/:name', function ( req, res ) {
         if ( err ){
           return console.error ( 'error running query' );
         }
-        setTimeout( setResponseHeaders ( res, url ), 3000 );
+        setTimeout( setResponseHeaders ( res, requestingURL ), 3000 );
         res.send( result.rows );
         done();
 
