@@ -44,9 +44,9 @@ var myApp = angular
       })
   })
   .controller( 'userManagementController', function ( $http, $route, $scope, $rootScope, $log ) {
-    var vm = this;
+    var vm = this,
+        i = 0 ;
 
-    var i = 0 ;
     $scope.$on( '$routeChangeStart',  function ( event, next, current ) {
 
         $log.info( 'in $routeChange Start ' + i );
@@ -82,7 +82,7 @@ var myApp = angular
   })
   .controller( "productController", function ( $scope, $http, $log, $location, $route ) {
 
-      var url = 'http://localhost:3000/'
+      var url = 'http://localhost:3000/';
       // var url: '../src/data/products.json'  use this to run against local data files.
       $http({
         method: 'GET',
