@@ -18,7 +18,6 @@ var myApp = angular
             .then( function ( response ) {
               return response.data;
             });
-
           }
         }
       })
@@ -99,25 +98,9 @@ var myApp = angular
 
       //Search for a product in any field.
       $scope.getProduct = function () {
-        vm.searchResult = filterService.getFilteredList( products, $scope.searchString );
-        // var keys,
-        //     product;
-        // if( $scope.searchString.trim() === '' || $scope.searchString === null ){
-        //     vm.searchResult = products;
-        // }else{
-        //   vm.searchResult = [];
-        //   for( var i=0;i<products.length;i++){
-        //       product = products[i];
-        //       keys = Object.keys( product );
-        //       for( var j=0;j<keys.length; j++){
-        //         if( product[keys[j]].toString().trim() === $scope.searchString ){
-        //           vm.searchResult.push( product );
-        //           continue;
-        //         }
-        //     }
-        //   }
-          $scope.searchResult = vm.searchResult;
-          console.log( vm.searchResult );
+        vm.searchResult = filterService.searchInAllKeys( products, $scope.searchString );
+        $scope.searchResult = vm.searchResult;
+        console.log( vm.searchResult );
 
         // }
       }
