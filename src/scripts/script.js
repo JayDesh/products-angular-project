@@ -91,7 +91,7 @@ var myApp = angular
     });
 
   })
-  .controller( "productController", function ( products,$scope, $http, $log, $location, $route ) {
+  .controller( "productController", function ( products,$scope, filterService, $log, $location, $route ) {
       var vm = this;
       var url = 'http://localhost:3000/';
 
@@ -99,26 +99,27 @@ var myApp = angular
 
       //Search for a product in any field.
       $scope.getProduct = function () {
-        var keys,
-            product;
-        if( $scope.searchString.trim() === '' || $scope.searchString === null ){
-            vm.searchResult = products;
-        }else{
-          vm.searchResult = [];
-          for( var i=0;i<products.length;i++){
-              product = products[i];
-              keys = Object.keys( product );
-              for( var j=0;j<keys.length; j++){
-                if( product[keys[j]].toString().trim() === $scope.searchString ){
-                  vm.searchResult.push( product );
-                  continue;
-                }
-            }
-          }
+        vm.searchResult = filterService.getFilteredList( products, $scope.searchString );
+        // var keys,
+        //     product;
+        // if( $scope.searchString.trim() === '' || $scope.searchString === null ){
+        //     vm.searchResult = products;
+        // }else{
+        //   vm.searchResult = [];
+        //   for( var i=0;i<products.length;i++){
+        //       product = products[i];
+        //       keys = Object.keys( product );
+        //       for( var j=0;j<keys.length; j++){
+        //         if( product[keys[j]].toString().trim() === $scope.searchString ){
+        //           vm.searchResult.push( product );
+        //           continue;
+        //         }
+        //     }
+        //   }
           $scope.searchResult = vm.searchResult;
           console.log( vm.searchResult );
 
-        }
+        // }
       }
       // $scope.getProduct = function () {
       //   if( !!$scope.searchByProductName ){
