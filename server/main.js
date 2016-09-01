@@ -51,28 +51,36 @@ app.get( '/', function ( req, res ) {
 
 //http://localhost:3000/searchByName/Lotstring
 app.get( '/searchByName/:name', function ( req, res ) {
-    console.log( 'in search by name');
-    var requestingURL = 'http://localhost:8000',
-    querySql = 'SELECT * FROM product';
 
-    pg.connect( connectString, function( err, client, done ) {
-      if( err ) {
-        return console.error( 'error connecting to datasource' );
-      }
-      if( req.params.name ){
-        querySql = querySql + " where name = '"  + req.params.name + "'";
-      }
-      console.log( 'querySql = ' + querySql );
-      client.query( querySql, function ( err, result ){
-        if ( err ){
-          return console.error ( 'error running query' );
-        }
-        setTimeout( setResponseHeaders ( res, requestingURL ), 3000 );
-        res.send( result.rows );
-        done();
-
-       });
-    });
+    setTimeout( getData( req, res, req.params.name ), 10000 );
+    // console.log( 'in search by name');
+    // var requestingURL = 'http://localhost:8000',
+    // querySql = 'SELECT * FROM product';
+    //
+    // pg.connect( connectString, function( err, client, done ) {
+    //   if( err ) {
+    //     return console.error( 'error connecting to datasource' );
+    //   }
+    //   if( req.params.name ){
+    //     querySql = querySql + " where name = '"  + req.params.name + "'";
+    //   }
+    //   console.log( 'querySql = ' + querySql );
+    //   client.query( querySql, function ( err, result ){
+    //     if ( err ){
+    //       return console.error ( 'error running query' );
+    //     }
+    //
+    //     setTimeout( function () {
+    //       console.log ( 'in set timeout' );
+    //     }, 10000);
+    //
+    //     console.log('after set timeout');
+    //     setResponseHeaders ( res, requestingURL );
+    //     res.send( result.rows );
+    //     done();
+    //
+    //    });
+    // });
   });
 
 app.listen( 3000, function () {
@@ -96,4 +104,30 @@ function setResponseHeaders ( res, url ) {
 
   return res;
 
+}
+
+function getData( req, res, name ) {
+  console.log( 'in search by name');
+  var requestingURL = 'http://localhost:8000',
+  querySql = 'SELECT * FROM product';
+
+  pg.connect( connectString, function( err, client, done ) {
+    if( err ) {
+      return console.error( 'error connecting to datasource' );
+    }
+    if( name ){
+      querySql = querySql + " where name = '"  + name + "'";
+    }
+    console.log( 'querySql = ' + querySql );
+    client.query( querySql, function ( err, result ){
+      if ( err ){
+        return console.error ( 'error running query' );
+      }
+
+      setResponseHeaders ( res, requestingURL );
+      res.send( result.rows );
+      done();
+
+     });
+  });
 }

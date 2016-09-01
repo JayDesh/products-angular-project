@@ -5,12 +5,13 @@ var myApp = angular
     $routeProvider.caseInsensitiveMatch = true;
     $routeProvider
       .when("/", {
-        templateUrl: 'src/templates/product-table.html',
-        controller: 'productController'
+        template: '<div>Landing Page</div>',
+        controller: 'landingController'
       })
       .when("/products", {
         templateUrl:'src/templates/product-table.html',
-        controller:'productController'
+        controller:'productController',
+        controllerAs: 'prdCtrl'
       })
       .when("/product-updates", {
         templateUrl:'src/templates/product-updates.html',
@@ -43,6 +44,7 @@ var myApp = angular
         redirectTo: "/"
       })
   })
+  .controller('landingController', function(){})
   .controller( 'userManagementController', function ( $http, $route, $scope, $rootScope, $log ) {
     var vm = this,
         i = 0 ;
@@ -81,26 +83,50 @@ var myApp = angular
 
   })
   .controller( "productController", function ( $scope, $http, $log, $location, $route ) {
-
+      var vm = this;
       var url = 'http://localhost:3000/';
+
+      $scope.searchResult = [];
       // var url: '../src/data/products.json'  use this to run against local data files.
       $http({
         method: 'GET',
-
         url: url
       }).then( function ( response ) {
         $log.info( response);
-        $scope.productCollection = response.data;
+        vm.productCollection = response.data;
+        vm.searchResult = vm.productCollection;
       });
 
+
       $scope.getProduct = function () {
-        if( !!$scope.searchByProductName ){
-            $location.url( '/product-name-search/' + $scope.searchByProductName );
-        }else{
-          $location.url( '/name-search' );
+        var keys,
+            product;
+        if( $scope.searchString.trim() === '' || $scope.searchString === null ){
+            vm.searchResult = vm.productCollection;
         }
+        vm.searchResult = [];
+        for( var i=0;i<vm.productCollection.length;i++){
+            product = vm.productCollection[i];
+            keys = Object.keys( product );
+            for( var j=0;j<keys.length; j++){
+              if( product[keys[j]].toString().trim() === $scope.searchString ){
+                vm.searchResult.push( product );
+                continue;
+              }
+          }
+        }
+        $scope.searchResult = vm.searchResult;
+        console.log( vm.searchResult );
 
       }
+      // $scope.getProduct = function () {
+      //   if( !!$scope.searchByProductName ){
+      //       $location.url( '/product-name-search/' + $scope.searchByProductName );
+      //   }else{
+      //     $location.url( '/name-search' );
+      //   }
+
+      // }
 
 //This method modifies the product name
       // $scope.getProduct = function ( productName ) {
