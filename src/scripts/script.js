@@ -11,7 +11,16 @@ var myApp = angular
       .when("/products", {
         templateUrl:'src/templates/product-table.html',
         controller:'productController',
-        controllerAs: 'prdCtrl'
+        controllerAs: 'prdCtrl',
+        resolve:{
+          products: function($http){
+            return $http.get("http://localhost:3000/")
+            .then( function ( response ) {
+              return response.data;
+            });
+
+          }
+        }
       })
       .when("/product-updates", {
         templateUrl:'src/templates/product-updates.html',
@@ -82,20 +91,11 @@ var myApp = angular
     });
 
   })
-  .controller( "productController", function ( $scope, $http, $log, $location, $route ) {
+  .controller( "productController", function ( products,$scope, $http, $log, $location, $route ) {
       var vm = this;
       var url = 'http://localhost:3000/';
 
       $scope.searchResult = [];
-      // var url: '../src/data/products.json'  use this to run against local data files.
-      $http({
-        method: 'GET',
-        url: url
-      }).then( function ( response ) {
-        $log.info( response);
-        vm.productCollection = response.data;
-        vm.searchResult = vm.productCollection;
-      });
 
 
       $scope.getProduct = function () {
@@ -139,6 +139,8 @@ var myApp = angular
       //     $scope.productCollection = response.data;
       //   });
       // };
+
+      vm.searchResult = products;
   })
   .controller( "userController", function ( $http, $log, $routeParams, $route ) {
     var vm = this;
